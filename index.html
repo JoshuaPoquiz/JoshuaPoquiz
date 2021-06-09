@@ -1,0 +1,281 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>Registration</title>
+  
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      color: #4f4f4f;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    body{
+      background-color: #f6f6f6;
+    }
+    
+    p{
+      padding: 10px;
+    }
+    
+    main{
+      padding: 10px;
+    }
+    
+    h2{
+      text-align: center;
+      padding: 10px 0;
+      color: #3b444b;
+      opacity: .8;
+    }
+    
+    .container{
+      text-align: center;
+      
+    }
+    
+    form{
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 7px rgba(0,0,0,.20);
+      display: inline-block;
+      text-align: left;
+    }
+    
+    .btn{
+      padding: 3px;
+      display: inline-block;
+      border-radius: 5px;
+    }
+    
+    .btn:hover{
+      background: #b3ffb3;
+    }
+    
+    input[type="submit"]{
+      padding: 15px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #1aff1a;
+      color: white;
+      font-weight: bold;
+      outline: none;
+      cursor: pointer;
+      margin: 0;
+    }
+    
+    label{
+      font-size: 17px;
+    }
+    
+    .form-control{
+      border: 2px solid #f4f4f4;
+      padding: 8px;
+      border-radius: 5px;
+      outline: none;
+      font-size: 15px;
+      
+    }
+    
+    .form-control:hover{
+      border: 2px solid #66ff66;
+    }
+    
+    select{
+      background: #f6f6f6;
+    }
+    
+    input[type="checkbox"]{
+      height: 25px;
+      width: 25px;
+    }
+    
+    .error, .success{
+      text-align: center;
+    }
+    
+    .error{
+      background-color: #ff704d;
+      color: white;
+      padding: 20px;
+      display: none;
+      border-radius: 3px;
+    }
+    
+    .success{
+      background-color: #1aff1a;
+      color: white;
+      padding: 20px;
+      display: none;
+      border-radius: 3px;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<main>
+  
+  <div class="container">
+
+<form id="form-submit" method="POST" action="/">
+  <table>
+    
+    <caption>
+  <h2>User Registration</h2>
+  <p>
+    Please complete the following form to register with our site:
+  </p>
+    </caption>
+
+      <tr>
+        <td><label>User Name:</label></td>
+        <td><input class="form-control" id="username" type="text" name="txtUserName" size="20" /></td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td><td>&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td><label>Password:</label></td>
+        <td><input class="form-control" id="pwd" type="password" name="pwdPassword" size="20" /></td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td><td>&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td><label>Gender:</label></td>
+        <td><label><input class="form-control gender" checked="true" type="radio" name="radSex" value="male" />Male</label></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><label><input class="form-control gender" type="radio" name="radSex" value="female" />Female</label></td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td><td>&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td><label>How did you hear about us?:</label></td>
+        <td>
+          <select class="form-control" id="select-item" name="selReferrer">
+            <option selected="selected" value="">Select answer</option>
+            <option value="website">Another website</option>
+            <option value="printAd">Magazine ad</option>
+            <option value="friend">From a friend</option>
+            <option value="other">Other</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td><label>Please select this box if you wish<br /> to be added to our mailing list<br /><small>We will not pass on your details to any thirdparty.</small></label>
+        </td>
+        <td><input id="chkbox-mail" type="checkbox" name="chkMailingList" /></td>
+      </tr>
+      
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      
+      <tr>
+        <td colspan="2">
+          <div class="error"></div>
+          <div class="success"></div>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><div class="btn"><input type="submit" value="Register now" id="register" /></div></td>
+      </tr>
+
+  </table>
+</form>
+</div>
+</main>
+
+  <script type="text/javascript">
+    const username = document.querySelector('#username');
+    
+    const pwd = document.querySelector('#pwd');
+    
+    var gender = document.querySelector("input[type=radSex]:checked");
+    
+    const selectItem = document.querySelector('#select-item');
+    
+    const chckboxMail = document.querySelector('#chkbox-mail');
+    
+    const formSubmit = document.querySelector('#form-submit');
+    
+    const registerButton = document.querySelector('#register');
+    let error = '';
+    let success = '';
+
+
+    function isEmpty(str) {
+      return str === null || str.match(/^ *$/) !== null;
+    }
+
+    registerButton.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (isEmpty(username.value) || isEmpty(pwd.value) || isEmpty(selectItem.value)) {
+        success = '';
+        error = "All fields are required";
+        document.querySelector('.error').style.display = "block"
+        document.querySelector('.success').style.display = "none"
+      }
+      else if(chckboxMail.checked == false){
+        success = '';
+        error = "Please check the checkbox";
+        document.querySelector('.error').style.display = "block"
+        document.querySelector('.success').style.display = "none"
+      }
+      
+      else {
+        error = '';
+        success = "Data has been submitted";
+        username.value = '';
+        pwd.value = '';
+        selectItem.value = '';
+        chckboxMail.checked = false;
+        
+        document.querySelector('.success').style.display = "block"
+        document.querySelector('.error').style.display = "none"
+      }
+      
+      document.querySelector('.error').innerText = error
+      document.querySelector('.success').innerText = success
+      
+    })
+    
+
+
+
+
+  </script>
+</body>
+
+</html>
